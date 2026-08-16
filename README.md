@@ -249,13 +249,14 @@ Safe File Write
 Progress Events
     ↓
 Completed File
+```
 
 # Node.js Practice Tasks
 
 Five focused coding exercises covering **Buffer, path, fs, Streams, and EventEmitter**.
 
 These tasks were completed as part of a Node.js practice session to strengthen understanding of Node.js core modules through practical coding exercises.
-```
+
 ---
 
 # Round 1 — Buffer: Caesar Cipher on Raw Bytes
