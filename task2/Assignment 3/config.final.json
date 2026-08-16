@@ -1,0 +1,12 @@
+{
+  "db": {
+    "host": "production.example.com",
+    "port": 5432
+  },
+  "debug": false,
+  "features": [
+    "a",
+    "b",
+    "c"
+  ]
+}
