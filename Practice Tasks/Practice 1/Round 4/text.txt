@@ -1,0 +1,7 @@
+Hello world! This is a simple text file for testing the streaming word counter.
+Node.js streams process data chunk by chunk instead of loading the entire file into memory.
+A stream can receive text in different chunks, and sometimes a single word can be split between two chunks.
+The program must correctly count every word even when words are separated by spaces, tabs, or new lines.
+This file contains several sentences with different whitespace characters.
+Testing streams is useful because large files should be processed efficiently and safely.
+The final result should show the total number of words and the total number of bytes processed.
