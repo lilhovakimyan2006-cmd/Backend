@@ -1065,3 +1065,132 @@ The following cases should be tested before submitting:
 This project demonstrates how to build a basic real-time chat application directly on top of TCP using Node.js's built-in `net` module.
 
 The application implements username management, broadcast messaging, private messaging, message framing, user lists, graceful exits, join/leave notifications, and safe connection handling without using third-party networking libraries.
+
+# TCP Tic-Tac-Toe
+
+A simple two-player Tic-Tac-Toe game built with Node.js TCP sockets using the built-in `net` module.
+
+## Features
+
+* Two-player TCP game
+* Player X joins first
+* Player O joins second
+* 3×3 game board
+* Players choose cells from `0` to `8`
+* Server validates every move
+* Invalid moves are rejected
+* Win and draw detection
+* Opponent disconnect detection
+* Third connection is rejected
+* TCP message buffering and line-based protocol handling
+
+## Technologies
+
+* Node.js
+* `node:net`
+* `node:readline`
+* TCP sockets
+
+## Project Structure
+
+```text
+TicTacToe/
+├── server.js
+├── client.js
+└── README.md
+```
+
+## How to Run
+
+### 1. Start the server
+
+```bash
+node server.js
+```
+
+The server listens on port `3001`.
+
+### 2. Start Player 1
+
+Open another terminal:
+
+```bash
+node client.js
+```
+
+Player 1 receives the `X` symbol.
+
+### 3. Start Player 2
+
+Open another terminal:
+
+```bash
+node client.js
+```
+
+Player 2 receives the `O` symbol.
+
+### 4. Play the game
+
+The board uses indexes from `0` to `8`:
+
+```text
+0 | 1 | 2
+---------
+3 | 4 | 5
+---------
+6 | 7 | 8
+```
+
+When it is your turn, enter the number of the cell you want to choose.
+
+## Protocol
+
+Communication between the server and clients uses line-based messages. Every message ends with `\n`.
+
+### Server → Client
+
+```text
+SYMBOL|X
+SYMBOL|O
+BOARD|_,_,_,_,_,_,_,_,_
+TURN|X
+TURN|O
+REJECTED|not your turn
+REJECTED|invalid move
+REJECTED|cell occupied
+WIN|X
+WIN|O
+DRAW
+OPPONENT_LEFT
+```
+
+### Client → Server
+
+```text
+MOVE|4
+```
+
+## TCP Message Buffering
+
+Because TCP is a byte stream, one `data` event does not necessarily contain exactly one complete message.
+
+The application uses a per-socket buffer to handle:
+
+* fragmented messages
+* multiple messages received together
+* incomplete messages
+
+Messages are separated using the newline character `\n`.
+
+## Game Rules
+
+1. The first player is assigned `X`.
+2. The second player is assigned `O`.
+3. `X` starts the game.
+4. A player can choose only an empty cell.
+5. A move must contain a cell index from `0` to `8`.
+6. After every valid move, the updated board is sent to both players.
+7. The game ends when a player gets three symbols in a row or all cells are occupied.
+8. If a player disconnects, the other player receives `OPPONENT_LEFT`.
+9. A third connection is rejected while two players are already connected.
