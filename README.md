@@ -1194,3 +1194,264 @@ Messages are separated using the newline character `\n`.
 7. The game ends when a player gets three symbols in a row or all cells are occupied.
 8. If a player disconnects, the other player receives `OPPONENT_LEFT`.
 9. A third connection is rejected while two players are already connected.
+
+
+# REST API — Contacts, Tasks & Notes
+
+A simple REST API built with **Node.js** using the native `http` module, without Express.
+
+The API allows you to create, read, update and delete **contacts, tasks and notes**.
+
+## Technologies
+
+* Node.js
+* Native `http` module
+* Native `URL` API
+* REST API
+* JSON
+* Postman
+* dotenv
+
+## Installation
+
+Clone the repository:
+
+```bash
+git clone <repository-url>
+cd <project-folder>
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Create a `.env` file:
+
+```env
+PORT=3000
+```
+
+Start the server:
+
+```bash
+npm run dev
+```
+
+The server will run on:
+
+```text
+http://localhost:3000
+```
+
+## API Resources
+
+The API contains three resources:
+
+* `/contacts`
+* `/tasks`
+* `/notes`
+
+Each resource supports CRUD operations.
+
+---
+
+## Contacts
+
+### Get all contacts
+
+```http
+GET /contacts
+```
+
+### Get contact by ID
+
+```http
+GET /contacts/:id
+```
+
+### Create a contact
+
+```http
+POST /contacts
+```
+
+Example body:
+
+```json
+{
+  "name": "John",
+  "email": "john@example.com",
+  "phone": "+37499123456"
+}
+```
+
+### Update a contact
+
+```http
+PUT /contacts/:id
+```
+
+### Delete a contact
+
+```http
+DELETE /contacts/:id
+```
+
+---
+
+## Tasks
+
+### Get all tasks
+
+```http
+GET /tasks
+```
+
+### Get task by ID
+
+```http
+GET /tasks/:id
+```
+
+### Create a task
+
+```http
+POST /tasks
+```
+
+Example body:
+
+```json
+{
+  "title": "Learn Node.js",
+  "description": "Study REST API and HTTP methods"
+}
+```
+
+### Update a task
+
+```http
+PUT /tasks/:id
+```
+
+### Delete a task
+
+```http
+DELETE /tasks/:id
+```
+
+---
+
+## Notes
+
+### Get all notes
+
+```http
+GET /notes
+```
+
+### Get note by ID
+
+```http
+GET /notes/:id
+```
+
+### Create a note
+
+```http
+POST /notes
+```
+
+Example body:
+
+```json
+{
+  "title": "Node.js notes",
+  "content": "Study HTTP methods and REST API"
+}
+```
+
+### Update a note
+
+```http
+PUT /notes/:id
+```
+
+### Delete a note
+
+```http
+DELETE /notes/:id
+```
+
+---
+
+## HTTP Status Codes
+
+The API uses standard HTTP status codes:
+
+| Status Code | Meaning                       |
+| ----------- | ----------------------------- |
+| `200`       | Request successful            |
+| `201`       | Resource successfully created |
+| `204`       | Resource successfully deleted |
+| `400`       | Bad request                   |
+| `404`       | Resource not found            |
+| `500`       | Internal server error         |
+
+## Error Response
+
+When an error occurs, the API returns a JSON response.
+
+Example:
+
+```json
+{
+  "error": "Contact not found"
+}
+```
+
+## Project Structure
+
+```text
+project/
+│
+├── index.js
+├── package.json
+├── package-lock.json
+├── .env
+├── .gitignore
+└── README.md
+```
+
+## Testing
+
+The API can be tested using **Postman** or `curl`.
+
+Example:
+
+```bash
+curl http://localhost:3000/contacts
+```
+
+Create a contact:
+
+```bash
+curl -X POST http://localhost:3000/contacts \
+-H "Content-Type: application/json" \
+-d '{"name":"John","email":"john@example.com","phone":"+37499123456"}'
+```
+
+## Features
+
+* CRUD operations
+* Contacts management
+* Tasks management
+* Notes management
+* JSON request/response handling
+* URL parsing
+* Request body parsing
+* HTTP status codes
+* Error handling
+* Native Node.js HTTP server
