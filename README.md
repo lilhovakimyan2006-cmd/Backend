@@ -1455,3 +1455,154 @@ curl -X POST http://localhost:3000/contacts \
 * HTTP status codes
 * Error handling
 * Native Node.js HTTP server
+
+# Products API
+
+A RESTful API built with Node.js and Express.js for managing products, featuring CRUD operations, input validation, logging, JWT authentication, and role-based authorization.
+
+## Features
+
+- **CRUD Operations** — Create, read, update, and delete products.
+- **Input Validation** — Validates product names, prices, and IDs.
+- **Logger Middleware** — Logs incoming HTTP requests.
+- **JWT Authentication** — Protects the product creation endpoint.
+- **Role-Based Authorization** — Only administrators can delete products.
+- **Error Handling** — Handles application errors with appropriate HTTP status codes.
+
+## Technologies Used
+
+- Node.js
+- Express.js
+- JSON Web Token (`jsonwebtoken`)
+- dotenv
+
+## Project Structure
+
+```text
+project/
+├── middleware/
+│   ├── auth.js
+│   ├── errorHandler.js
+│   └── logger.js
+├── routes/
+│   └── products.js
+├── .env
+├── .gitignore
+├── package.json
+├── package-lock.json
+└── server.js
+```
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone <your-repository-url>
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd <project-directory>
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   npm install express jsonwebtoken dotenv
+   ```
+
+4. Create a `.env` file in the project root:
+
+   ```env
+   PORT=3000
+   JWT_SECRET=your_long_random_secret
+   ```
+
+5. Start the server:
+
+   ```bash
+   node server.js
+   ```
+
+The API will be available at `http://localhost:3000`.
+
+## API Endpoints
+
+| Method | Endpoint | Description | Access |
+|---|---|---|---|
+| GET | `/products` | Get all products | Public |
+| GET | `/products/:id` | Get a product by ID | Public |
+| POST | `/products` | Create a product | Authenticated |
+| PUT | `/products/:id` | Update a product | Public |
+| DELETE | `/products/:id` | Delete a product | Admin only |
+
+## Request Examples
+
+### Create a Product
+
+**POST** `/products`
+
+Requires a valid JWT access token.
+
+Headers:
+
+```http
+Content-Type: application/json
+Authorization: Bearer <your-jwt-token>
+```
+
+Request body:
+
+```json
+{
+  "name": "Laptop",
+  "price": 1200
+}
+```
+
+### Update a Product
+
+**PUT** `/products/1`
+
+Request body:
+
+```json
+{
+  "name": "Updated Laptop",
+  "price": 1350
+}
+```
+
+### Delete a Product
+
+**DELETE** `/products/1`
+
+Requires a valid JWT token belonging to an administrator.
+
+Headers:
+
+```http
+Authorization: Bearer <admin-jwt-token>
+```
+
+## HTTP Status Codes
+
+| Status Code | Meaning |
+|---|---|
+| `200 OK` | Request completed successfully |
+| `201 Created` | Product created successfully |
+| `400 Bad Request` | Invalid input or product ID |
+| `401 Unauthorized` | Missing or invalid authentication token |
+| `403 Forbidden` | User does not have administrator permissions |
+| `404 Not Found` | Product does not exist |
+| `500 Internal Server Error` | Unexpected server error |
+
+## Notes
+
+- Products are stored in an in-memory array, so they are lost when the server restarts.
+- JWT tokens must be signed with the server's `JWT_SECRET`.
+- User roles must be assigned by trusted server-side logic.
+- Keep the `.env` file private and never commit secrets to version control.
