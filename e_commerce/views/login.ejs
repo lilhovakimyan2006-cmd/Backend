@@ -1,0 +1,17 @@
+<%- include("header", { title: "Log in" }) %>
+<main>
+    <section class="card" aria-labelledby="login-heading" style="max-width: 420px; margin: 0 auto;">
+        <h1 id="login-heading">Log in</h1>
+        <form action="/auth/login" method="post">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" autocomplete="username" required>
+
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" autocomplete="current-password" required>
+
+            <button type="submit">Log in</button>
+        </form>
+        <p class="muted">New here? <a href="/auth/register">Create an account</a>.</p>
+    </section>
+</main>
+<%- include("footer") %>

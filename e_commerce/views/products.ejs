@@ -1,0 +1,19 @@
+<%- include("header", { title: "Products" }) %>
+<main>
+    <h1>Products</h1>
+    <% if (products.length === 0) { %>
+        <p class="empty-state">No products are available.</p>
+    <% } else { %>
+        <div class="card-list">
+            <% products.forEach((product) => { %>
+                <article class="card">
+                    <h2><%= product.name %></h2>
+                    <p class="muted"><%= product.category %></p>
+                    <p><strong>$<%= Number(product.price).toFixed(2) %></strong></p>
+                    <p><%= product.stock %> in stock</p>
+                </article>
+            <% }); %>
+        </div>
+    <% } %>
+</main>
+<%- include("footer") %>
