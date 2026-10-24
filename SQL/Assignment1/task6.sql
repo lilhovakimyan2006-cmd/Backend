@@ -1,0 +1,1 @@
+GRANT SELECT ON TABLE books TO library_staff;
