@@ -1,34 +1,33 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-const SECRET = process.env.SECRET;
+const SECRET = process.env.JWT_SECRET;
 
 if (!SECRET) {
-    throw new Error('SECRET is Not Defined');
+    throw new Error('JWT_SECRET is not defined');
 }
 
 function authenticate(req, res, next) {
-    const header = req.headers.authorization;
+    const authorization = req.headers.authorization;
 
-    if (!header) {
+    if (!authorization) {
         return res.status(401).json({
             error: 'No Token Provided'
         });
     }
 
-    const token = header.split(" ")[1];
+    const [scheme, token] = authorization.split(' ');
 
-    if (!token || header.split(" ")[0] !== "Bearer") {
+    if (scheme !== 'Bearer' || !token || authorization.split(' ').length !== 2) {
         return res.status(401).json({
-            error: "Unauthorized"
-        })
+            error: 'Invalid Authorization Header'
+        });
     }
 
     try {
         req.user = jwt.verify(token, SECRET);
-        
-        next();
+        return next();
     } catch (error) {
-        res.status(401).json({
+        return res.status(401).json({
             error: 'Invalid or Expired Token'
         });
     }
@@ -36,17 +35,23 @@ function authenticate(req, res, next) {
 
 function authorize(...allowedRoles) {
     return (req, res, next) => {
+        if (!req.user) {
+            return res.status(401).json({
+                error: 'Authentication Required'
+            });
+        }
+
         if (!allowedRoles.includes(req.user.role)) {
             return res.status(403).json({
                 error: 'Forbidden'
-            })
+            });
         }
 
-        next();
-    }
+        return next();
+    };
 }
 
 module.exports = {
     authenticate,
     authorize
-}
+};
