@@ -249,3 +249,52 @@ psql -U your_username -d your_database
 - PostgreSQL
 - SQL
 - `psql` command-line interface
+
+# Joins & Aggregation Practice
+
+## Overview
+This assignment focuses on practicing SQL JOINs and aggregate functions using two domains: a blog system and a library system.
+
+## Topics Covered
+- `INNER JOIN`
+- `LEFT JOIN`
+- `COUNT()`, `SUM()`, and `AVG()`
+- `GROUP BY` and `HAVING`
+- `ORDER BY` and `LIMIT`
+- Primary keys and foreign keys
+- Handling records without related data
+- Filtering grouped results
+
+## Part A — Blog Domain
+Worked with the `authors`, `articles`, and `comments` tables to:
+- Join articles with their authors and comments.
+- Retrieve all articles, including those without comments.
+- Calculate total views per author.
+- Filter authors using `HAVING`.
+- Count comments per article, including articles with zero comments.
+- Find the most-commented article.
+
+## Part B — Library Domain
+Worked with the `writers`, `books`, and `reviews` tables to:
+- Join books with their writers and reviews.
+- Retrieve books without reviews using `LEFT JOIN`.
+- Count books per writer.
+- Calculate average ratings and review counts per book.
+- Filter books based on average ratings and review counts.
+- Calculate average ratings across all books written by each writer.
+
+## Bonus — Leaderboard
+- Find the author with the highest total article views.
+- Find the book with the highest average rating, considering only books with at least two reviews.
+- Compare the queries and their complexity.
+
+## Key Learning Outcomes
+- Understand the differences between `INNER JOIN` and `LEFT JOIN`.
+- Combine data from multiple related tables.
+- Apply aggregate functions to summarize data.
+- Use `GROUP BY` and `HAVING` to group and filter results.
+- Handle missing related records correctly when counting and calculating averages.
+
+## Technologies
+- PostgreSQL
+- SQL
